@@ -1,7 +1,9 @@
+import Page from '../components/Page';
+
 export default function Main() {
   return (
-    <div>
+    <Page>
       <p>Hello!</p>
-    </div>
+    </Page>
   );
 }
