@@ -1,8 +1,8 @@
-import { useQuery } from '@apollo/client';
-import gql from 'graphql-tag';
-import Head from 'next/head';
-import styled from 'styled-components';
-import DisplayError from './ErrorMessage';
+import { useQuery } from "@apollo/client";
+import gql from "graphql-tag";
+import Head from "next/head";
+import styled from "styled-components";
+import DisplayError from "./ErrorMessage";
 
 const ProductStyles = styled.div`
   display: grid;
@@ -44,7 +44,7 @@ export default function SingleProduct({ id }) {
   if (loading) return <p>Loading...</p>;
   if (error) return <DisplayError error={error} />;
   const { Product } = data;
-  console.log(Product);
+
   return (
     <ProductStyles>
       <Head>
