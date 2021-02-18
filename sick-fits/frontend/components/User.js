@@ -1,15 +1,27 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 
-export const CURRENT_USER_QUERY = gql`
+const CURRENT_USER_QUERY = gql`
   query {
     authenticatedItem {
-      # handle the type union,
-      # since authenticatedItem can contain anything
       ... on User {
         id
         email
         name
-        # TODO: Query the cart once we have it
+        cart {
+          id
+          quantity
+          product {
+            id
+            price
+            name
+            description
+            photo {
+              image {
+                publicUrlTransformed
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -19,3 +31,5 @@ export function useUser() {
   const { data } = useQuery(CURRENT_USER_QUERY);
   return data?.authenticatedItem;
 }
+
+export { CURRENT_USER_QUERY };

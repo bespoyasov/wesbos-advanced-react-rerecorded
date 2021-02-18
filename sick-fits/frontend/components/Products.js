@@ -37,6 +37,7 @@ export default function Products({ page }) {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+  if (!data) return <p>No data loaded</p>;
   return (
     <div>
       <ProductsListStyles>
