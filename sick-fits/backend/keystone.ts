@@ -1,18 +1,21 @@
-import { config, createSchema } from '@keystone-next/keystone/schema';
 import { createAuth } from '@keystone-next/auth';
+import { config, createSchema } from '@keystone-next/keystone/schema';
 import {
   withItemData,
   statelessSessions,
 } from '@keystone-next/keystone/session';
-
-import { User } from './schemas/User';
-import { Product } from './schemas/Product';
+import { OrderItem } from './schemas/OrderItem';
+import { Order } from './schemas/Order';
+import { CartItem } from './schemas/CartItem';
 import { ProductImage } from './schemas/ProductImage';
-import { CartItem } from './schemas/Cart';
+import { Product } from './schemas/Product';
+import { User } from './schemas/User';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetEmail } from './lib/mail';
 import { extendGraphqlSchema } from './mutations';
+
+function check(name: string) {}
 
 const databaseURL = process.env.DATABASE_URL;
 
@@ -59,13 +62,15 @@ export default withAuth(
       Product,
       ProductImage,
       CartItem,
+      OrderItem,
+      Order,
     }),
     extendGraphqlSchema,
     ui: {
       isAccessAllowed: ({ session }) => !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
-      User: 'id',
+      User: 'id name email',
     }),
   })
 );
